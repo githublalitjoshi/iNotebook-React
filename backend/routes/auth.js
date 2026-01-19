@@ -15,10 +15,10 @@ router.post('/createuser', [
   body('password', 'Password must be atleast 5 characters').isLength({ min: 5 }),
 ], async (req, res) => {
   // If there are errors, return Bad request and the errors
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
+  //const errors = validationResult(req);
+ // if (!errors.isEmpty()) {
+ //   return res.status(400).json({ errors: errors.array() });
+ // }
   try {
     // Check whether the user with this email exists already
     let user = await User.findOne({ email: req.body.email });
@@ -100,7 +100,7 @@ router.post('/login', [
 router.post('/getuser', fetchuser,  async (req, res) => {
 
   try {
-    userId = req.user.id;
+    let userId = req.user.id;
     const user = await User.findById(userId).select("-password")
     res.send(user)
   } catch (error) {
